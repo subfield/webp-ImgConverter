@@ -5,7 +5,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from PIL import Image
 
-fileExtions = [".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG"]
+fileExtention = [".png", ".jpg", ".jpeg", ".PNG", ".JPG", ".JPEG"]
 
 class ImageHandler(FileSystemEventHandler):
     def __init__(self, target_folder, index_file):
@@ -17,7 +17,7 @@ class ImageHandler(FileSystemEventHandler):
             file_path = event.src_path
             file_ext = os.path.splitext(file_path)[1].lower()
 
-            if file_ext in fileExtions:
+            if file_ext in fileExtention:
                 self.convert_to_webp(file_path)
 
     def convert_to_webp(self, file_path):
@@ -86,7 +86,7 @@ def convert_existing_images(folder_path, index_file):
         for file in files:
             file_path = os.path.join(root, file)
             file_ext = os.path.splitext(file)[1].lower()
-            if file_ext in fileExtions:
+            if file_ext in fileExtention:
                 webp_path = os.path.splitext(file_path)[0] + ".webp"
                 if not os.path.exists(webp_path):
                     ImageHandler(folder_path, index_file).convert_to_webp(file_path)
